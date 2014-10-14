@@ -1,5 +1,8 @@
 var http = require('http');
 var url = require('url');
+var join = require('path').join;
+var parse = require('url').parse;
+var qs = require('querystring');
 var items = [];
 
 var server = http.createServer(function(req, res) {
@@ -12,7 +15,8 @@ var server = http.createServer(function(req, res) {
 			});
 			req.on('end', function() {
 				items.push(item);
-				res.end("Item added\n");
+				var obj = qs.parse(item);
+				res.end("Added " + item + " successfully...");
 			});
 			break;
 		case 'GET':
